@@ -7,10 +7,13 @@ const path = require('path')
 //conexion a base de datos en el archivo indicado
 const connectDB = require('./config/db')
 
+const bodyParser = require('body-parser')
+
 //middlewares
 //Es una funcion que se ejecuta despues de recibir una peticion y antes de dar una respuesta
 //trabajar con archivos estaticos
 app.use(express.static(path.join(__dirname, 'public') ))
+app.use(bodyParser.urlencoded({extended:true}))
 //app.use(express.static(__dirname + '/public' ))
 
 //CONFIGURACIONES
@@ -22,6 +25,8 @@ connectDB()
 app.get("/", (req, res)=>{
     res.render("index")
 })
+//animes
+app.use('/animes', require('./routes/animes.router'))
 
 
 
